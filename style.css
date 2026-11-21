@@ -108,13 +108,39 @@ button {
 /* FLORAL SCREEN */
 
 .floral-screen {
-  background-image: url('florals.jpg');
-  background-size: 100% 100%;
-  background-position: center;
+  position: absolute;
+  isolation: isolate;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.floral-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('florals.jpg') center / 100% 100% no-repeat;
+  clip-path: circle(0% at 50% 52%);
+  animation: flowersSpread 2.7s cubic-bezier(.18,.72,.2,1) .15s forwards;
+}
+
+@keyframes flowersSpread {
+  0% {
+    clip-path: circle(0% at 50% 52%);
+    filter: blur(5px);
+  }
+  65% {
+    filter: blur(0);
+  }
+  100% {
+    clip-path: circle(150% at 50% 52%);
+    filter: blur(0);
+  }
 }
 
 .reveal-pill {
   position: absolute;
+  z-index: 1;
   bottom: 3%;
   left: 50%;
   transform: translateX(-50%);
@@ -125,6 +151,12 @@ button {
   font: italic 18px 'Parisienne', cursive;
   box-shadow: 0 2px 12px #5d433322;
   white-space: nowrap;
+  opacity: 0;
+  animation: revealPill .7s ease 2.85s forwards;
+}
+
+@keyframes revealPill {
+  to { opacity: 1; }
 }
 
 /* BOUQUET */
